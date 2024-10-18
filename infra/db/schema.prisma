@@ -1,0 +1,28 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "mysql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Pastor {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+
+  Engagements Engagement[]
+
+  @@map("pastors")
+}
+
+model Engagement {
+  id Int @id @default(autoincrement())
+  pastorId Int
+  pastor Pastor @relation(fields: [pastorId], references: [id])
+  state String
+  createdAt DateTime @default(now())
+
+  @@map("engagements")
+}

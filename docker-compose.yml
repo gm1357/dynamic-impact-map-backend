@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=mysql://root:password@db:3306/mydatabase
+      - DATABASE_URL=mysql://root:password@localhost:3306/dynamic-impact-map
       - PORT=3000
     volumes:
       - .:/app
@@ -20,7 +20,7 @@ services:
     image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=password
-      - MYSQL_DATABASE=mydatabase
+      - MYSQL_DATABASE=dynamic-impact-map
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
