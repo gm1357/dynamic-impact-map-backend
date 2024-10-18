@@ -12,6 +12,20 @@ class PastorController {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
+
+  async getEngagementStats(req: Request, res: Response): Promise<void> {
+    try {
+      const pastorId = req.params.pastorId;
+      const startDate = req.query.startDate as string | undefined;
+      const endDate = req.query.endDate as string | undefined;
+      
+      const engagementStats = await pastorService.getEngagementStats(pastorId, startDate, endDate);
+      res.json(engagementStats);
+    } catch (error) {
+      console.error('Error fetching engagement stats:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 }
 
 export default new PastorController();

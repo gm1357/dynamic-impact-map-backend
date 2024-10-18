@@ -3,3 +3,10 @@ export interface EngagementData {
   timestamp: string;
   state: string;
 }
+
+export interface EngagementStats {
+  totalEngagements: number;
+  engagementPerState: Record<string, number>;
+  startDate?: string;
+  endDate?: string;
+}
