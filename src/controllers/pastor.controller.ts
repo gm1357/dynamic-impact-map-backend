@@ -2,6 +2,17 @@ import { Request, Response } from 'express';
 import pastorService from '../services/pastor.service';
 
 class PastorController {
+  async getPastorInfo(req: Request, res: Response): Promise<void> {
+    try {
+      const pastorId = req.params.pastorId;
+      const pastorInfo = await pastorService.getPastorInfo(pastorId);
+      res.json(pastorInfo);
+    } catch (error) {
+      console.error('Error fetching pastor information:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
   async getImpactMap(req: Request, res: Response): Promise<void> {
     try {
       const pastorId = req.params.pastorId;

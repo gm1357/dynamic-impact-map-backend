@@ -1,11 +1,32 @@
 import { EngagementData, EngagementStats } from '../types/engagementData';
-import { PrismaClient, Engagement } from '@prisma/client';
+import { PrismaClient, Engagement, Pastor } from '@prisma/client';
 
 class PastorService {
   private prisma: PrismaClient;
 
   constructor() {
     this.prisma = new PrismaClient();
+  }
+
+  async getPastorInfo(pastorId: string): Promise<{ id: string; name: string }> {
+    const pastor = await this.prisma.pastor.findUnique({
+      where: {
+        id: parseInt(pastorId),
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    if (!pastor) {
+      throw new Error('Pastor not found');
+    }
+
+    return {
+      id: pastor.id.toString(),
+      name: pastor.name,
+    };
   }
 
   async getImpactMapData(pastorId: string): Promise<EngagementData[]> {
