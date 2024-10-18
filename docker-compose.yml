@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL=mysql://root:password@localhost:3306/dynamic-impact-map
+      - DATABASE_URL=mysql://root:password@db:3306/dynamic-impact-map
       - PORT=3000
     volumes:
       - .:/app

@@ -1,15 +1,18 @@
-FROM node:18-slim
+FROM node:23-slim
+
+RUN apt-get update -y && apt-get install -y openssl
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package.json yarn.lock ./
+COPY infra/db ./infra/db
 
-RUN npm install
+RUN yarn
 
 COPY . .
 
-RUN npm run build
+RUN yarn build
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["yarn", "start"]

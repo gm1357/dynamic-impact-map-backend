@@ -3,7 +3,9 @@
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
     "build": "tsc",
-    "prisma:migrate": "prisma migrate --schema ./infra/db/schema.prisma"
+    "prisma:generate": "prisma generate --schema ./infra/db/schema.prisma",
+    "prisma:migrate": "prisma migrate --schema ./infra/db/schema.prisma",
+    "postinstall": "yarn prisma:generate"
   },
   "prisma": {
     "schema": "./infra/db/schema.prisma",
