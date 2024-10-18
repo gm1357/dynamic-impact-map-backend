@@ -8,7 +8,7 @@ class PastorService {
     this.prisma = new PrismaClient();
   }
 
-  async getPastorInfo(pastorId: string): Promise<{ id: string; name: string }> {
+  async getPastorInfo(pastorId: string): Promise<{ id: string; name: string, state: string }> {
     const pastor = await this.prisma.pastor.findUnique({
       where: {
         id: parseInt(pastorId),
@@ -16,6 +16,7 @@ class PastorService {
       select: {
         id: true,
         name: true,
+        state: true,
       },
     });
 
@@ -26,6 +27,7 @@ class PastorService {
     return {
       id: pastor.id.toString(),
       name: pastor.name,
+      state: pastor.state,
     };
   }
 

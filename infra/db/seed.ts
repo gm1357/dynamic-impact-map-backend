@@ -56,9 +56,10 @@ const usStates = [
   ];
 
 async function main() {
-  await prisma.pastor.create({
+  const pastor = await prisma.pastor.create({
     data: {
       name: 'Pastor Test',
+      state: 'CA',
     },
   });
 
@@ -68,7 +69,7 @@ async function main() {
     const randomNumber = Math.floor(Math.random() * 10) + 1;
     for (let i = 0; i < randomNumber; i++) {
       engagementPoints.push({
-        pastorId: 1,
+        pastorId: pastor.id,
         state,
       });
     }

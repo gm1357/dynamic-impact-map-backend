@@ -11,6 +11,7 @@ generator client {
 model Pastor {
   id        Int      @id @default(autoincrement())
   name      String
+  state     String   @db.VarChar(2)
   createdAt DateTime @default(now())
 
   Engagements Engagement[]
