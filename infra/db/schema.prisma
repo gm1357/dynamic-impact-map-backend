@@ -28,3 +28,12 @@ model Engagement {
 
   @@map("engagements")
 }
+
+model USAState {
+  code String @id @db.VarChar(2)
+  name String
+  latitude Float
+  longitude Float
+
+  @@map("usa_states")
+}

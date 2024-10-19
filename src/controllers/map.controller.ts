@@ -8,12 +8,22 @@ export class MapController {
     this.mapService = new MapService();
   }
 
-  async getUsStatesMap(req: Request, res: Response) {
+  async getUSAStatesMap(req: Request, res: Response) {
     try {
-      const data = await this.mapService.getUsStatesMapData();
+      const data = await this.mapService.getUSAStatesMapData();
       res.json(data);
     } catch (error) {
       console.error('Error in getUsStatesMap controller:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+  async getUSAStates(req: Request, res: Response) {
+    try {
+      const states = await this.mapService.getUSAStates();
+      res.json(states);
+    } catch (error) {
+      console.error('Error in getUsStates controller:', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   }
