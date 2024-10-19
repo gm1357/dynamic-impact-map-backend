@@ -63,14 +63,17 @@ async function main() {
     },
   });
 
-  const engagementPoints: { pastorId: number; state: string }[] = [];
+  const engagementPoints: { pastorId: number; state: string; createdAt: Date }[] = [];
 
   for (const state of usStates) {
-    const randomNumber = Math.floor(Math.random() * 10) + 1;
+    const randomNumber = Math.floor(Math.random() * 100) + 1;
     for (let i = 0; i < randomNumber; i++) {
+      // createdAt is a date between 30 days ago and today
+      const createdAt = new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000);
       engagementPoints.push({
         pastorId: pastor.id,
         state,
+        createdAt,
       });
     }
   }

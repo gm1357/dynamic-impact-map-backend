@@ -36,6 +36,9 @@ class PastorService {
       where: {
         pastorId: parseInt(pastorId),
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
 
     return engagements.map((engagement: Engagement) => ({
