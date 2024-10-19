@@ -31,10 +31,17 @@ class PastorService {
     };
   }
 
-  async getImpactMapData(pastorId: string): Promise<EngagementData[]> {
+  async getImpactMapData(pastorId: string, startDate?: string, endDate?: string): Promise<EngagementData[]> {
+    const start = startDate ? new Date(startDate) : new Date(new Date().setHours(0, 0, 0, 0));
+    const end = endDate ? new Date(endDate) : new Date();
+
     const engagements = await this.prisma.engagement.findMany({
       where: {
         pastorId: parseInt(pastorId),
+        createdAt: {
+          gte: start,
+          lte: end,
+        },
       },
       orderBy: {
         createdAt: 'desc',

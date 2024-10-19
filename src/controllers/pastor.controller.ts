@@ -16,7 +16,10 @@ class PastorController {
   async getImpactMap(req: Request, res: Response): Promise<void> {
     try {
       const pastorId = req.params.pastorId;
-      const impactMapData = await pastorService.getImpactMapData(pastorId);
+      const startDate = req.query.startDate as string | undefined;
+      const endDate = req.query.endDate as string | undefined;
+      
+      const impactMapData = await pastorService.getImpactMapData(pastorId, startDate, endDate);
       res.json(impactMapData);
     } catch (error) {
       console.error('Error fetching impact map data:', error);
