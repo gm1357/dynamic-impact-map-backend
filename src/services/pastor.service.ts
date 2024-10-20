@@ -1,3 +1,4 @@
+import { PASTOR_NOT_FOUND } from '../constants/error-messages';
 import { EngagementData, EngagementStats } from '../types/engagementData';
 import { PrismaClient, Engagement } from '@prisma/client';
 
@@ -9,9 +10,14 @@ class PastorService {
   }
 
   async getPastorInfo(pastorId: string): Promise<{ id: string; name: string, state: string }> {
+    const parsedId = parseInt(pastorId);
+    if (isNaN(parsedId)) {
+      throw new Error(PASTOR_NOT_FOUND);
+    }
+
     const pastor = await this.prisma.pastor.findUnique({
       where: {
-        id: parseInt(pastorId),
+        id: parsedId,
       },
       select: {
         id: true,
@@ -21,7 +27,7 @@ class PastorService {
     });
 
     if (!pastor) {
-      throw new Error('Pastor not found');
+      throw new Error(PASTOR_NOT_FOUND);
     }
 
     return {
@@ -32,12 +38,17 @@ class PastorService {
   }
 
   async getImpactMapData(pastorId: string, startDate?: string, endDate?: string, limit: number = 300): Promise<EngagementData[]> {
+    const parsedId = parseInt(pastorId);
+    if (isNaN(parsedId)) {
+      throw new Error(PASTOR_NOT_FOUND);
+    }
+
     const start = startDate ? new Date(startDate) : new Date(new Date().setHours(0, 0, 0, 0));
     const end = endDate ? new Date(endDate) : new Date();
 
     const engagements = await this.prisma.engagement.findMany({
       where: {
-        pastorId: parseInt(pastorId),
+        pastorId: parsedId,
         createdAt: {
           gte: start,
           lte: end,
@@ -57,8 +68,13 @@ class PastorService {
   }
 
   async getEngagementStats(pastorId: string, startDate?: string, endDate?: string): Promise<EngagementStats> {
+    const parsedId = parseInt(pastorId);
+    if (isNaN(parsedId)) {
+      throw new Error(PASTOR_NOT_FOUND);
+    }
+
     const whereClause: any = {
-      pastorId: parseInt(pastorId),
+      pastorId: parsedId,
     };
 
     if (startDate || endDate) {

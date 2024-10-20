@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import pastorService from '../services/pastor.service';
+import { INTERNAL_SERVER_ERROR, PASTOR_NOT_FOUND } from '../constants/error-messages';
 
 class PastorController {
   async getPastorInfo(req: Request, res: Response): Promise<void> {
@@ -9,7 +10,11 @@ class PastorController {
       res.json(pastorInfo);
     } catch (error) {
       console.error('Error fetching pastor information:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      if (error instanceof Error && error.message === PASTOR_NOT_FOUND) {
+        res.status(404).json({ error: PASTOR_NOT_FOUND });
+      } else {
+        res.status(500).json({ error: INTERNAL_SERVER_ERROR });
+      }
     }
   }
 
@@ -23,8 +28,11 @@ class PastorController {
       const impactMapData = await pastorService.getImpactMapData(pastorId, startDate, endDate, limit);
       res.json(impactMapData);
     } catch (error) {
-      console.error('Error fetching impact map data:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      if (error instanceof Error && error.message === PASTOR_NOT_FOUND) {
+        res.status(404).json({ error: PASTOR_NOT_FOUND });
+      } else {
+        res.status(500).json({ error: INTERNAL_SERVER_ERROR });
+      }
     }
   }
 
@@ -38,7 +46,11 @@ class PastorController {
       res.json(engagementStats);
     } catch (error) {
       console.error('Error fetching engagement stats:', error);
-      res.status(500).json({ error: 'Internal server error' });
+      if (error instanceof Error && error.message === PASTOR_NOT_FOUND) {
+        res.status(404).json({ error: PASTOR_NOT_FOUND });
+      } else {
+        res.status(500).json({ error: INTERNAL_SERVER_ERROR });
+      }
     }
   }
 }

@@ -7,8 +7,8 @@
     "prisma:migrate": "prisma migrate dev --schema ./infra/db/schema.prisma",
     "prisma:reset": "prisma migrate reset --schema ./infra/db/schema.prisma",
     "postinstall": "yarn prisma:generate",
-    "engagements:generator": "ts-node src/scripts/insertRandomEngagements.ts",
-    "engagements:single": "ts-node src/scripts/insertSingleRandomEngagement.ts"
+    "engagements:generator": "ts-node src/scripts/insert-random-engagements.ts",
+    "engagements:single": "ts-node src/scripts/insert-single-random-engagement.ts"
   },
   "prisma": {
     "schema": "./infra/db/schema.prisma",

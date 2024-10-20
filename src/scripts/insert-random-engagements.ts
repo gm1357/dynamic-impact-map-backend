@@ -28,7 +28,7 @@ async function insertRandomEngagements() {
       return;
     }
 
-    const numberOfEngagements = Math.floor(Math.random() * 491) + 10; // Random number between 10 and 500
+    const numberOfEngagements = Math.floor(Math.random() * 340) + 10; // Random number between 10 and 350
     const engagements = [];
 
     for (let i = 0; i < numberOfEngagements; i++) {
