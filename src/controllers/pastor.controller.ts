@@ -18,8 +18,9 @@ class PastorController {
       const pastorId = req.params.pastorId;
       const startDate = req.query.startDate as string | undefined;
       const endDate = req.query.endDate as string | undefined;
+      const limit = parseInt(req.query.limit as string) || 300;
       
-      const impactMapData = await pastorService.getImpactMapData(pastorId, startDate, endDate);
+      const impactMapData = await pastorService.getImpactMapData(pastorId, startDate, endDate, limit);
       res.json(impactMapData);
     } catch (error) {
       console.error('Error fetching impact map data:', error);

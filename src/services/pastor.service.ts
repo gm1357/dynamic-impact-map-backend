@@ -31,7 +31,7 @@ class PastorService {
     };
   }
 
-  async getImpactMapData(pastorId: string, startDate?: string, endDate?: string): Promise<EngagementData[]> {
+  async getImpactMapData(pastorId: string, startDate?: string, endDate?: string, limit: number = 300): Promise<EngagementData[]> {
     const start = startDate ? new Date(startDate) : new Date(new Date().setHours(0, 0, 0, 0));
     const end = endDate ? new Date(endDate) : new Date();
 
@@ -46,6 +46,7 @@ class PastorService {
       orderBy: {
         createdAt: 'desc',
       },
+      take: limit,
     });
 
     return engagements.map((engagement: Engagement) => ({
