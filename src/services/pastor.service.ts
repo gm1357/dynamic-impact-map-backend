@@ -1,5 +1,5 @@
 import { EngagementData, EngagementStats } from '../types/engagementData';
-import { PrismaClient, Engagement, Pastor } from '@prisma/client';
+import { PrismaClient, Engagement } from '@prisma/client';
 
 class PastorService {
   private prisma: PrismaClient;
@@ -44,7 +44,7 @@ class PastorService {
         },
       },
       orderBy: {
-        createdAt: 'desc',
+        createdAt: 'asc',
       },
       take: limit,
     });
